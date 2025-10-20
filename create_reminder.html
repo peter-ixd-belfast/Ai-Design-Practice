@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "content-light": "#f6f7f8",
+              "content-dark": "#1b2837",
+              "text-light": "#101922",
+              "text-dark": "#f6f7f8",
+              "text-muted-light": "#6b7280",
+              "text-muted-dark": "#9ca3af",
+              "border-light": "#e5e7eb",
+              "border-dark": "#374151"
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+          },
+        },
+      };
+    </script>
+<style>
+      .form-select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+      }
+      .dark .form-select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+<div class="flex flex-col min-h-screen">
+<header class="border-b border-border-light dark:border-border-dark bg-content-light dark:bg-content-dark">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">
+                notifications_active
+              </span>
+<h1 class="text-xl font-bold">Remindr</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+<span class="material-symbols-outlined text-text-light dark:text-text-dark">
+                close
+              </span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div class="w-full max-w-lg space-y-8 bg-content-light dark:bg-content-dark p-8 rounded-lg shadow-lg">
+<div>
+<h2 class="text-3xl font-bold text-center">Create a New Reminder</h2>
+</div>
+<form class="space-y-6">
+<div>
+<label class="block text-sm font-medium text-text-muted-light dark:text-text-muted-dark" for="title">Title</label>
+<input class="mt-1 block w-full px-4 py-3 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md shadow-sm placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" id="title" name="title" placeholder="e.g., Water the plants" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-muted-light dark:text-text-muted-dark" for="description">Description</label>
+<textarea class="mt-1 block w-full px-4 py-3 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md shadow-sm placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" id="description" name="description" placeholder="Add any extra details..." rows="4"></textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-text-muted-light dark:text-text-muted-dark" for="date">Date</label>
+<div class="relative mt-1">
+<input class="block w-full pl-4 pr-10 py-3 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md shadow-sm placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" id="date" name="date" placeholder="Select Date" type="text"/>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+<span class="material-symbols-outlined text-text-muted-light dark:text-text-muted-dark">
+                      calendar_today
+                    </span>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-muted-light dark:text-text-muted-dark" for="time">Time</label>
+<div class="relative mt-1">
+<input class="block w-full pl-4 pr-10 py-3 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md shadow-sm placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" id="time" name="time" placeholder="Select Time" type="text"/>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+<span class="material-symbols-outlined text-text-muted-light dark:text-text-muted-dark">
+                      schedule
+                    </span>
+</div>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-muted-light dark:text-text-muted-dark" for="recurrence">Recurrence</label>
+<select class="mt-1 block w-full pl-4 pr-10 py-3 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm form-select appearance-none" id="recurrence" name="recurrence">
+<option>Does not repeat</option>
+<option>Daily</option>
+<option>Weekly</option>
+<option>Monthly</option>
+<option>Yearly</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-text-muted-light dark:text-text-muted-dark" for="sound">Sound</label>
+<select class="mt-1 block w-full pl-4 pr-10 py-3 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm form-select appearance-none" id="sound" name="sound">
+<option>Default Tone</option>
+<option>Chime</option>
+<option>Alarm</option>
+<option>Bell</option>
+</select>
+</div>
+<div>
+<button class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" type="submit">
+                Add Reminder
+              </button>
+</div>
+</form>
+</div>
+</main>
+</div>
+
+</body></html>
