@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<title>RemindMe - Dashboard</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              display: ["Inter"],
+            },
+            borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          },
+        },
+      };
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
+<div class="flex flex-col min-h-screen">
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl"> alarm </span>
+<h2 class="text-xl font-bold text-slate-900 dark:text-white">RemindMe</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400"> settings </span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCNq_SsuRtfGu9Vk1WuvpJtFRMviFqkHKePNXGsC0oefWR_5O3Ve1JyaJCFUcuYZDx6c2UKU067wAMmtLMQW_JMhVS9oQozaTw_qM97KucKSssuKinmXOnYk20jOkFjR0tB4-m0nuMtrGfJncC7tAT-Zfr_kB4xEwVx6Jx7kpoAy5FzQuPMf7p95VcRmZ0AwHmTFjPlIcyAMfXkg1g4A9HcwnrGyCSRxB7KIgaAlflleSs1Ng-2ibOKb1_qwatcvUUS0VfGbdKuFkCt");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="max-w-4xl mx-auto">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+<h1 class="text-3xl font-bold text-slate-900 dark:text-white">Upcoming Reminders</h1>
+<button class="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-75 transition-all">
+<span class="material-symbols-outlined"> add </span>
+<span>Add Reminder</span>
+</button>
+</div>
+<div class="mb-12">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Presets</h3>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+<button class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/50 rounded-lg shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+<span class="material-symbols-outlined text-primary text-2xl"> medical_services </span>
+<span class="font-semibold text-slate-700 dark:text-slate-200">Medication</span>
+</button>
+<button class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/50 rounded-lg shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+<span class="material-symbols-outlined text-primary text-2xl"> light_mode </span>
+<span class="font-semibold text-slate-700 dark:text-slate-200">Wake Up</span>
+</button>
+<button class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/50 rounded-lg shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">
+<span class="material-symbols-outlined text-primary text-2xl"> dark_mode </span>
+<span class="font-semibold text-slate-700 dark:text-slate-200">Bedtime</span>
+</button>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">All Reminders</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800/50 rounded-lg shadow-sm">
+<div class="flex items-center justify-center shrink-0 size-12 bg-primary/10 dark:bg-primary/20 rounded-full">
+<span class="material-symbols-outlined text-primary text-2xl"> medical_services </span>
+</div>
+<div class="flex-grow">
+<p class="font-semibold text-slate-800 dark:text-slate-100">Take Vitamin D</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Tomorrow, 9:00 AM</p>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400"> more_vert </span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800/50 rounded-lg shadow-sm">
+<div class="flex items-center justify-center shrink-0 size-12 bg-primary/10 dark:bg-primary/20 rounded-full">
+<span class="material-symbols-outlined text-primary text-2xl"> light_mode </span>
+</div>
+<div class="flex-grow">
+<p class="font-semibold text-slate-800 dark:text-slate-100">Morning Walk</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Tomorrow, 10:00 AM</p>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400"> more_vert </span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800/50 rounded-lg shadow-sm">
+<div class="flex items-center justify-center shrink-0 size-12 bg-primary/10 dark:bg-primary/20 rounded-full">
+<span class="material-symbols-outlined text-primary text-2xl"> dark_mode </span>
+</div>
+<div class="flex-grow">
+<p class="font-semibold text-slate-800 dark:text-slate-100">Evening Meditation</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Tomorrow, 8:00 PM</p>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400"> more_vert </span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800/50 rounded-lg shadow-sm">
+<div class="flex items-center justify-center shrink-0 size-12 bg-primary/10 dark:bg-primary/20 rounded-full">
+<span class="material-symbols-outlined text-primary text-2xl"> bedtime </span>
+</div>
+<div class="flex-grow">
+<p class="font-semibold text-slate-800 dark:text-slate-100">Take Sleep Aid</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Tomorrow, 10:00 PM</p>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400"> more_vert </span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
