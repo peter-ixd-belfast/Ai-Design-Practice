@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>City Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .location-pin {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .location-pin:hover {
+            transform: scale(1.2);
+        }
+        #location-card {
+            transform: translateY(110%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #location-card.active {
+            transform: translateY(0);
+        }
+        .location-pin:focus+#location-card-wrapper>#location-card {
+            transform: translateY(0);
+        }
+        #location-key-content {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in-out, visibility 0s 0s, opacity 0.3s ease-in-out;
+            visibility: visible;
+            opacity: 1;
+        }
+        #location-key:not(.expanded) #location-key-content {
+            max-height: 0;
+            visibility: hidden;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, visibility 0s 0.5s, opacity 0.3s ease-in-out;
+        }
+        #collapse-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        #location-key:not(.expanded) #collapse-icon {
+            transform: rotate(180deg);
+        }
+        .view-toggle button.active {
+            background-color: #1173d4;
+            color: white;
+        }
+        .view-toggle button:not(.active) {
+            background-color: transparent;
+            color: #4b5563;
+        }
+        .dark .view-toggle button:not(.active) {
+            color: #d1d5db;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-screen w-full flex-col group/design-root overflow-hidden">
+<div class="absolute inset-0" id="map-view">
+<div class="relative h-full w-full">
+<img class="h-full w-full object-cover" data-alt="A simplified, stylized map of a city focusing on key roads and streets against a light gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO5senyaCq9xm3--oMKxtwXpdFwxMaWWn29r6YDvRC8heD4HWyDX37_RFk3fER80t0_6v55DgTNe08Cbo5pDXtW4dAL24jRbd00WAwp1I_XVy2Xq7zbNuBuZ8JeKWUPdQwdI-nRj4doASC01tYavFkq1zUIumj67qe6a5UcCy312NEzfSOV-mxWlhXIqz1lZWSYs9_TEpxfk9l2jGfnZMysz750ytDS5keX_19fPP4CFegc7m-rLsRdsA6E6mxH1L5n8XuP5URtnw"/>
+<button class="absolute top-[35%] left-[25%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="1" tabindex="0">
+<div class="relative">
+<span class="material-symbols-outlined text-purple-500 text-5xl">place</span>
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">1</span>
+</div>
+</button>
+<button class="absolute top-[25%] left-[55%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="2" tabindex="0">
+<div class="relative">
+<span class="material-symbols-outlined text-blue-500 text-5xl">place</span>
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">2</span>
+</div>
+</button>
+<button class="absolute top-[55%] left-[18%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="3" tabindex="0">
+<div class="relative">
+<span class="material-symbols-outlined text-green-500 text-5xl">place</span>
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">3</span>
+</div>
+</button>
+<button class="absolute top-[48%] left-[80%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="4" tabindex="0">
+<div class="relative">
+<span class="material-symbols-outlined text-yellow-500 text-5xl">place</span>
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">4</span>
+</div>
+</button>
+<button class="absolute top-[75%] left-[40%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="5" tabindex="0">
+<div class="relative">
+<span class="material-symbols-outlined text-orange-500 text-5xl">place</span>
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">5</span>
+</div>
+</button>
+<button class="absolute top-[85%] left-[70%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="6" tabindex="0">
+<div class="relative">
+<span class="material-symbols-outlined text-red-500 text-5xl">place</span>
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">6</span>
+</div>
+</button>
+<button class="absolute top-[90%] left-[20%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="7" tabindex="0">
+<div class="relative">
+<span class="material-symbols-outlined text-pink-500 text-5xl">place</span>
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">7</span>
+</div>
+</button>
+<button class="absolute top-[15%] left-[85%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="8" tabindex="0">
+<div class="relative">
+<span class="material-symbols-outlined text-indigo-500 text-5xl">place</span>
+<span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">8</span>
+</div>
+</button>
+<div class="absolute inset-0 z-10 hidden" id="overlay-mask"></div>
+</div>
+<div class="absolute bottom-16 right-4 z-20">
+</div>
+<div class="absolute bottom-0 w-full" id="location-key">
+<div class="w-full rounded-t-xl bg-white/80 p-4 shadow-lg backdrop-blur-sm dark:bg-background-dark/80">
+<button class="flex w-full items-center justify-between text-gray-800 dark:text-gray-200" id="location-key-toggle">
+<h3 class="font-bold text-lg">Key Locations</h3>
+<span class="material-symbols-outlined" id="collapse-icon">expand_less</span>
+</button>
+<div class="mt-4" id="location-key-content">
+<ul class="space-y-3">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-purple-500">place</span>
+<span class="text-sm text-gray-700 dark:text-gray-300">City Art Museum</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-500">place</span>
+<span class="text-sm text-gray-700 dark:text-gray-300">Central Park</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-green-500">place</span>
+<span class="text-sm text-gray-700 dark:text-gray-300">Historic Old Town</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-yellow-500">place</span>
+<span class="text-sm text-gray-700 dark:text-gray-300">The Grand Library</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-orange-500">place</span>
+<span class="text-sm text-gray-700 dark:text-gray-300">Metropolis Arena</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-red-500">place</span>
+<span class="text-sm text-gray-700 dark:text-gray-300">Ocean View Pier</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-pink-500">place</span>
+<span class="text-sm text-gray-700 dark:text-gray-300">Science &amp; Innovation Hub</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-indigo-500">place</span>
+<span class="text-sm text-gray-700 dark:text-gray-300">Riverside Market</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 pt-32 pb-4 px-4 bg-background-light dark:bg-background-dark hidden" id="list-view">
+<div class="h-full overflow-y-auto space-y-3">
+<div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md flex items-start space-x-4">
+<div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-purple-500 text-white font-bold text-lg">1</div>
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white">City Art Museum</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">123 Art Gallery Lane, Metropolis</p>
+<p class="text-gray-600 dark:text-gray-300 text-sm mt-2">Home to a vast collection of modern and contemporary art from around the globe.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md flex items-start space-x-4">
+<div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-blue-500 text-white font-bold text-lg">2</div>
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white">Central Park</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">456 Park Avenue, Metropolis</p>
+<p class="text-gray-600 dark:text-gray-300 text-sm mt-2">A sprawling urban oasis with beautiful gardens, walking trails, and a serene lake.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md flex items-start space-x-4">
+<div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-green-500 text-white font-bold text-lg">3</div>
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white">Historic Old Town</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">789 History Plaza, Metropolis</p>
+<p class="text-gray-600 dark:text-gray-300 text-sm mt-2">Charming cobblestone streets lined with historic buildings, boutiques, and cafes.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md flex items-start space-x-4">
+<div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-yellow-500 text-white font-bold text-lg">4</div>
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white">The Grand Library</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">101 Knowledge Blvd, Metropolis</p>
+<p class="text-gray-600 dark:text-gray-300 text-sm mt-2">An architectural marvel housing millions of books and rare manuscripts.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md flex items-start space-x-4">
+<div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-orange-500 text-white font-bold text-lg">5</div>
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white">Metropolis Arena</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">212 Sports Rd, Metropolis</p>
+<p class="text-gray-600 dark:text-gray-300 text-sm mt-2">The premier venue for concerts, sporting events, and live entertainment.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md flex items-start space-x-4">
+<div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-red-500 text-white font-bold text-lg">6</div>
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white">Ocean View Pier</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">343 Boardwalk, Metropolis</p>
+<p class="text-gray-600 dark:text-gray-300 text-sm mt-2">Enjoy stunning ocean views, fishing, and seaside amusement rides.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md flex items-start space-x-4">
+<div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-pink-500 text-white font-bold text-lg">7</div>
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white">Science &amp; Innovation Hub</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">565 Future Drive, Metropolis</p>
+<p class="text-gray-600 dark:text-gray-300 text-sm mt-2">Explore interactive exhibits on technology, space, and the natural world.</p>
+</div>
+</div>
+<div class="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md flex items-start space-x-4">
+<div class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 text-white font-bold text-lg">8</div>
+<div>
+<h3 class="font-bold text-lg text-gray-900 dark:text-white">Riverside Market</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">878 Riverfront Walk, Metropolis</p>
+<p class="text-gray-600 dark:text-gray-300 text-sm mt-2">A bustling market with fresh produce, local crafts, and delicious street food.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-background-light/80 to-transparent dark:from-background-dark/80 z-10">
+<div class="flex w-full items-stretch rounded-lg h-12 shadow-lg">
+<div class="text-gray-500 flex border-none bg-white dark:bg-background-dark items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-0 border-none bg-white dark:bg-background-dark focus:border-none h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search for a location" value=""/>
+</div>
+</div>
+<div class="absolute top-20 left-1/2 -translate-x-1/2 flex items-center justify-center z-10">
+<div class="flex items-center gap-2 rounded-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-sm p-1 shadow-lg view-toggle">
+<button class="flex items-center gap-2 rounded-full px-4 py-2 text-white active" id="map-view-btn">
+<span class="material-symbols-outlined text-base">map</span>
+<span class="text-sm font-medium">Map</span>
+</button>
+<button class="flex items-center gap-2 rounded-full px-4 py-2 text-gray-600 dark:text-gray-300" id="list-view-btn">
+<span class="material-symbols-outlined text-base">list</span>
+<span class="text-sm font-medium">List</span>
+</button>
+</div>
+</div>
+<script>
+            const locations = {
+                1: {
+                    name: "City Art Museum",
+                    address: "123 Art Gallery Lane",
+                    rating: "4.5"
+                },
+                2: {
+                    name: "Central Park",
+                    address: "456 Park Avenue",
+                    rating: "4.8"
+                },
+                3: {
+                    name: "Historic Old Town",
+                    address: "789 History Plaza",
+                    rating: "4.7"
+                },
+                4: {
+                    name: "The Grand Library",
+                    address: "101 Knowledge Blvd",
+                    rating: "4.9"
+                },
+                5: {
+                    name: "Metropolis Arena",
+                    address: "212 Sports Rd",
+                    rating: "4.6"
+                },
+                6: {
+                    name: "Ocean View Pier",
+                    address: "343 Boardwalk",
+                    rating: "4.4"
+                },
+                7: {
+                    name: "Science & Innovation Hub",
+                    address: "565 Future Drive",
+                    rating: "4.8"
+                },
+                8: {
+                    name: "Riverside Market",
+                    address: "878 Riverfront Walk",
+                    rating: "4.7"
+                }
+            };
+            const locationPins = document.querySelectorAll('.location-pin');
+            const overlayMask = document.getElementById('overlay-mask');
+            let activeCard = null;
+            function hideLocationCard() {
+                if (activeCard) {
+                    const cardElement = activeCard.querySelector('.location-info-card');
+                    cardElement.classList.remove('opacity-100', 'translate-y-0');
+                    cardElement.classList.add('opacity-0', 'translate-y-full');
+                    overlayMask.classList.add('hidden');
+                    setTimeout(() => {
+                        activeCard.remove();
+                        activeCard = null;
+                    }, 300);
+                }
+            }
+            function showLocationCard(locationId, pinElement) {
+                if (activeCard) {
+                    hideLocationCard();
+                }
+                const locationData = locations[locationId];
+                const newCard = document.createElement('div');
+                newCard.className = 'absolute bottom-28 left-4 right-4 z-20 pointer-events-none flex justify-center';
+                newCard.innerHTML = `
+                    <div class="location-info-card bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-3 w-full max-w-sm transform transition-all duration-300 ease-in-out opacity-0 translate-y-full pointer-events-auto">
+                        <div class="flex items-center gap-3">
+                             <div class="flex-shrink-0 size-8 flex items-center justify-center rounded-full bg-primary text-white font-bold">
+                                ${locationId}
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-900 dark:text-white truncate">${locationData.name}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 truncate">${locationData.address}</p>
+                            </div>
+                            <div class="flex items-center gap-1 text-yellow-500">
+                                <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="font-semibold text-sm text-gray-800 dark:text-gray-200">${locationData.rating}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.querySelector('.group\\/design-root').appendChild(newCard);
+                activeCard = newCard;
+                const cardElement = newCard.querySelector('.location-info-card');
+                setTimeout(() => {
+                    cardElement.classList.remove('opacity-0', 'translate-y-full');
+                    cardElement.classList.add('opacity-100', 'translate-y-0');
+                }, 10);
+                overlayMask.classList.remove('hidden');
+            }
+            locationPins.forEach(pin => {
+                pin.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const locationId = pin.dataset.locationId;
+                    showLocationCard(locationId, pin);
+                });
+            });
+            overlayMask.addEventListener('click', hideLocationCard);
+            const mapViewBtn = document.getElementById('map-view-btn');
+            const listViewBtn = document.getElementById('list-view-btn');
+            const mapView = document.getElementById('map-view');
+            const listView = document.getElementById('list-view');
+            mapViewBtn.addEventListener('click', () => {
+                mapView.style.display = 'block';
+                listView.style.display = 'none';
+                mapViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+            });
+            listViewBtn.addEventListener('click', () => {
+                mapView.style.display = 'none';
+                listView.style.display = 'block';
+                listViewBtn.classList.add('active');
+                mapViewBtn.classList.remove('active');
+            });
+            const locationKey = document.getElementById('location-key');
+            const locationKeyToggle = document.getElementById('location-key-toggle');
+            locationKey.classList.add('expanded');
+            locationKeyToggle.addEventListener('click', () => {
+                locationKey.classList.toggle('expanded');
+            });
+        </script>
+</div>
+</body></html>
