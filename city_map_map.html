@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Key City Locations</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1173d4",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Public Sans"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden bg-background-light dark:bg-background-dark">
+<div class="flex items-center p-4 justify-between border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark">
+<button class="text-[#111418] dark:text-gray-200 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-[#111418] dark:text-gray-200 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">City Locations</h2>
+<div class="flex w-10 items-center justify-end">
+<div class="flex items-center rounded-full bg-gray-100 dark:bg-gray-700 p-1">
+<button class="p-1 rounded-full text-gray-500 dark:text-gray-400" id="list-view-btn">
+<span class="material-symbols-outlined text-base">list</span>
+</button>
+<button class="p-1 rounded-full bg-primary text-white" id="map-view-btn">
+<span class="material-symbols-outlined text-base">map</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex-grow relative" id="map-view">
+<img alt="City map with location markers" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgQ8UuAHodva5rebRzaqFORsOEpUPz-qT2NICGhT2wsL0uSZ7le9LYzN0MXWHMYOwsBSogkhlci3o5ObEwJIoHUX4dL5-k0qUp_4janK-fZ6xawQOKkpTez4n3j9Xe2I5BFnKoJh2dtrth7WIuTN3iZlC75mRKTreLeVc_1hNnW_BjNkAySWNkIqV8zR4wGQ5xDS1eQGw5L9uDOmXM_6Q9s_UeTng9ANncdETEeX3S9QXlNRT3zJ5UR2Rt3qIQ2NinnZQwaLlm2h8"/>
+<div class="absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500"></div>
+<div class="flex-grow">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">Grand Park</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">A large urban park with walking trails and a lake.</p>
+</div>
+<button class="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<div class="hidden flex-grow overflow-y-auto pb-4 bg-white dark:bg-gray-900" id="list-view">
+<div class="p-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">search</span>
+<input class="w-full rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 pl-10 pr-4 text-[#111418] dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-primary/50" placeholder="Search locations..." type="text"/>
+</div>
+</div>
+<button class="w-full text-left flex items-start gap-4 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="grand-park">
+<div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-red-500"></div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">Grand Park</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">A large urban park with walking trails and a lake.</p>
+</div>
+</button>
+<button class="w-full text-left flex items-start gap-4 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="art-institute">
+<div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-blue-500"></div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">Art Institute</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">Showcasing a collection of modern and contemporary art.</p>
+</div>
+</button>
+<button class="w-full text-left flex items-start gap-4 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="city-hall">
+<div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-green-500"></div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">City Hall</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">The center of the city's government.</p>
+</div>
+</button>
+<button class="w-full text-left flex items-start gap-4 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="union-station">
+<div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-yellow-500"></div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">Union Station</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">A major transportation hub and architectural landmark.</p>
+</div>
+</button>
+<button class="w-full text-left flex items-start gap-4 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="river-walk">
+<div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-orange-500"></div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">River Walk</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">A scenic pedestrian walkway along the river.</p>
+</div>
+</button>
+<button class="w-full text-left flex items-start gap-4 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="theater-district">
+<div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-purple-500"></div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">Theater District</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">A major commercial intersection and entertainment center.</p>
+</div>
+</button>
+<button class="w-full text-left flex items-start gap-4 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="navy-pier">
+<div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-pink-500"></div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">Navy Pier</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">A historic pier with attractions, shops, and restaurants.</p>
+</div>
+</button>
+<button class="w-full text-left flex items-start gap-4 p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="the-bean">
+<div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-teal-500"></div>
+<div class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-base font-medium leading-normal">The Bean</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">A famous public sculpture with a reflective surface.</p>
+</div>
+</button>
+</div>
+</div>
+</body></html>
