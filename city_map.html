@@ -146,12 +146,22 @@
       min-height: max(884px, 100dvh);
     }
   </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
   </head>
 <body class="bg-background-light dark:bg-background-dark font-display">
 <div class="relative flex h-screen w-full flex-col group/design-root overflow-hidden">
 <div class="absolute inset-0" id="map-view">
 <div class="relative h-full w-full overflow-hidden" id="map-container-wrapper">
-<div class="relative h-full w-full" id="map-container">
+<div class="absolute inset-0" id="map-container">
 <img class="h-full w-full object-cover" data-alt="A simplified, stylized map of a city focusing on key roads and streets against a light gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO5senyaCq9xm3--oMKxtwXpdFwxMaWWn29r6YDvRC8heD4HWyDX37_RFk3fER80t0_6v55DgTNe08Cbo5pDXtW4dAL24jRbd00WAwp1I_XVy2Xq7zbNuBuZ8JeKWUPdQwdI-nRj4doASC01tYavFkq1zUIumj67qe6a5UcCy312NEzfSOV-mxWlhXIqz1lZWSYs9_TEpxfk9l2jGfnZMysz750ytDS5keX_19fPP4CFegc7m-rLsRdsA6E6mxH1L5n8XuP5URtnw"/>
 <button class="absolute top-[35%] left-[25%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="1" tabindex="0">
 <div class="relative">
@@ -212,7 +222,13 @@
 </div>
 <div class="absolute inset-0 z-10 hidden" id="overlay-mask"></div>
 </div>
-<div class="absolute bottom-16 right-4 z-20">
+<div class="absolute right-4 bottom-36 z-20 flex flex-col items-center space-y-1" id="zoom-controls">
+<button class="flex h-12 w-12 items-center justify-center rounded-t-lg bg-white/80 text-gray-700 shadow-md backdrop-blur-sm transition-colors hover:bg-white dark:bg-zinc-800/80 dark:text-gray-300 dark:hover:bg-zinc-800" id="zoom-in">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<button class="flex h-12 w-12 items-center justify-center rounded-b-lg bg-white/80 text-gray-700 shadow-md backdrop-blur-sm transition-colors hover:bg-white dark:bg-zinc-800/80 dark:text-gray-300 dark:hover:bg-zinc-800" id="zoom-out">
+<span class="material-symbols-outlined text-3xl">remove</span>
+</button>
 </div>
 <div class="absolute bottom-0 w-full" id="location-key">
 <div class="w-full rounded-t-xl bg-white/80 p-4 shadow-lg backdrop-blur-sm dark:bg-background-dark/80">
@@ -361,8 +377,26 @@
             const locationPins = document.querySelectorAll('.location-pin');
             const overlayMask = document.getElementById('overlay-mask');
             const mapContainer = document.getElementById('map-container');
+            const zoomInBtn = document.getElementById('zoom-in');
+            const zoomOutBtn = document.getElementById('zoom-out');
             let activeCard = null;
             let activePin = null;
+            let currentZoom = 1;
+            const maxZoom = 3;
+            const minZoom = 0.5;
+            function updateZoom() {
+                mapContainer.style.transform = `scale(${currentZoom})`;
+            }
+            zoomInBtn.addEventListener('click', () => {
+                 if (activePin) return;
+                currentZoom = Math.min(maxZoom, currentZoom + 0.25);
+                updateZoom();
+            });
+            zoomOutBtn.addEventListener('click', () => {
+                 if (activePin) return;
+                currentZoom = Math.max(minZoom, currentZoom - 0.25);
+                updateZoom();
+            });
             function hideLocationCard() {
                 if (activeCard) {
                     const cardElement = activeCard.querySelector('.location-info-card');
@@ -373,7 +407,7 @@
                         activePin.classList.remove('active');
                         activePin = null;
                     }
-                     mapContainer.style.transform = 'scale(1) translate(0, 0)';
+                     mapContainer.style.transform = `scale(${currentZoom}) translate(0, 0)`;
                     setTimeout(() => {
                         activeCard.remove();
                         activeCard = null;
