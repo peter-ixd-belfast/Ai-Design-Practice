@@ -35,10 +35,12 @@
         }
         .location-pin {
             cursor: pointer;
-            transition: transform 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+            position: relative;
         }
-        .location-pin:hover {
-            transform: scale(1.2);
+        .location-pin:hover .location-glow, .location-pin.active .location-glow {
+            opacity: 1;
+            transform: scale(1.5);
         }
         #location-card {
             transform: translateY(110%);
@@ -80,7 +82,20 @@
         .dark .view-toggle button:not(.active) {
             color: #d1d5db;
         }
+        #map-container {
+            transition: transform 0.5s ease-in-out;
+        }
     </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
 <style>
     body {
       min-height: max(884px, 100dvh);
@@ -135,56 +150,66 @@
 <body class="bg-background-light dark:bg-background-dark font-display">
 <div class="relative flex h-screen w-full flex-col group/design-root overflow-hidden">
 <div class="absolute inset-0" id="map-view">
-<div class="relative h-full w-full">
+<div class="relative h-full w-full overflow-hidden" id="map-container-wrapper">
+<div class="relative h-full w-full" id="map-container">
 <img class="h-full w-full object-cover" data-alt="A simplified, stylized map of a city focusing on key roads and streets against a light gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO5senyaCq9xm3--oMKxtwXpdFwxMaWWn29r6YDvRC8heD4HWyDX37_RFk3fER80t0_6v55DgTNe08Cbo5pDXtW4dAL24jRbd00WAwp1I_XVy2Xq7zbNuBuZ8JeKWUPdQwdI-nRj4doASC01tYavFkq1zUIumj67qe6a5UcCy312NEzfSOV-mxWlhXIqz1lZWSYs9_TEpxfk9l2jGfnZMysz750ytDS5keX_19fPP4CFegc7m-rLsRdsA6E6mxH1L5n8XuP5URtnw"/>
 <button class="absolute top-[35%] left-[25%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="1" tabindex="0">
 <div class="relative">
+<div class="location-glow absolute inset-0 rounded-full bg-purple-500/50 opacity-0 blur-md transition-all duration-300"></div>
 <span class="material-symbols-outlined text-purple-500 text-5xl">place</span>
 <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">1</span>
 </div>
 </button>
 <button class="absolute top-[25%] left-[55%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="2" tabindex="0">
 <div class="relative">
+<div class="location-glow absolute inset-0 rounded-full bg-blue-500/50 opacity-0 blur-md transition-all duration-300"></div>
 <span class="material-symbols-outlined text-blue-500 text-5xl">place</span>
 <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">2</span>
 </div>
 </button>
 <button class="absolute top-[55%] left-[18%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="3" tabindex="0">
 <div class="relative">
+<div class="location-glow absolute inset-0 rounded-full bg-green-500/50 opacity-0 blur-md transition-all duration-300"></div>
 <span class="material-symbols-outlined text-green-500 text-5xl">place</span>
 <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">3</span>
 </div>
 </button>
 <button class="absolute top-[48%] left-[80%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="4" tabindex="0">
 <div class="relative">
+<div class="location-glow absolute inset-0 rounded-full bg-yellow-500/50 opacity-0 blur-md transition-all duration-300"></div>
 <span class="material-symbols-outlined text-yellow-500 text-5xl">place</span>
 <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">4</span>
 </div>
 </button>
 <button class="absolute top-[75%] left-[40%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="5" tabindex="0">
 <div class="relative">
+<div class="location-glow absolute inset-0 rounded-full bg-orange-500/50 opacity-0 blur-md transition-all duration-300"></div>
 <span class="material-symbols-outlined text-orange-500 text-5xl">place</span>
 <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">5</span>
 </div>
 </button>
 <button class="absolute top-[85%] left-[70%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="6" tabindex="0">
 <div class="relative">
+<div class="location-glow absolute inset-0 rounded-full bg-red-500/50 opacity-0 blur-md transition-all duration-300"></div>
 <span class="material-symbols-outlined text-red-500 text-5xl">place</span>
 <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">6</span>
 </div>
 </button>
 <button class="absolute top-[90%] left-[20%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="7" tabindex="0">
 <div class="relative">
+<div class="location-glow absolute inset-0 rounded-full bg-pink-500/50 opacity-0 blur-md transition-all duration-300"></div>
 <span class="material-symbols-outlined text-pink-500 text-5xl">place</span>
 <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">7</span>
 </div>
 </button>
 <button class="absolute top-[15%] left-[85%] location-pin transform -translate-x-1/2 -translate-y-1/2" data-location-id="8" tabindex="0">
 <div class="relative">
+<div class="location-glow absolute inset-0 rounded-full bg-indigo-500/50 opacity-0 blur-md transition-all duration-300"></div>
 <span class="material-symbols-outlined text-indigo-500 text-5xl">place</span>
 <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">8</span>
 </div>
 </button>
+</div>
 <div class="absolute inset-0 z-10 hidden" id="overlay-mask"></div>
 </div>
 <div class="absolute bottom-16 right-4 z-20">
@@ -197,35 +222,35 @@
 </button>
 <div class="mt-4" id="location-key-content">
 <ul class="space-y-3">
-<li class="flex items-center gap-3">
+<li class="flex items-center gap-3 cursor-pointer" data-location-id="1">
 <span class="material-symbols-outlined text-purple-500">place</span>
 <span class="text-sm text-gray-700 dark:text-gray-300">City Art Museum</span>
 </li>
-<li class="flex items-center gap-3">
+<li class="flex items-center gap-3 cursor-pointer" data-location-id="2">
 <span class="material-symbols-outlined text-blue-500">place</span>
 <span class="text-sm text-gray-700 dark:text-gray-300">Central Park</span>
 </li>
-<li class="flex items-center gap-3">
+<li class="flex items-center gap-3 cursor-pointer" data-location-id="3">
 <span class="material-symbols-outlined text-green-500">place</span>
 <span class="text-sm text-gray-700 dark:text-gray-300">Historic Old Town</span>
 </li>
-<li class="flex items-center gap-3">
+<li class="flex items-center gap-3 cursor-pointer" data-location-id="4">
 <span class="material-symbols-outlined text-yellow-500">place</span>
 <span class="text-sm text-gray-700 dark:text-gray-300">The Grand Library</span>
 </li>
-<li class="flex items-center gap-3">
+<li class="flex items-center gap-3 cursor-pointer" data-location-id="5">
 <span class="material-symbols-outlined text-orange-500">place</span>
 <span class="text-sm text-gray-700 dark:text-gray-300">Metropolis Arena</span>
 </li>
-<li class="flex items-center gap-3">
+<li class="flex items-center gap-3 cursor-pointer" data-location-id="6">
 <span class="material-symbols-outlined text-red-500">place</span>
 <span class="text-sm text-gray-700 dark:text-gray-300">Ocean View Pier</span>
 </li>
-<li class="flex items-center gap-3">
+<li class="flex items-center gap-3 cursor-pointer" data-location-id="7">
 <span class="material-symbols-outlined text-pink-500">place</span>
 <span class="text-sm text-gray-700 dark:text-gray-300">Science &amp; Innovation Hub</span>
 </li>
-<li class="flex items-center gap-3">
+<li class="flex items-center gap-3 cursor-pointer" data-location-id="8">
 <span class="material-symbols-outlined text-indigo-500">place</span>
 <span class="text-sm text-gray-700 dark:text-gray-300">Riverside Market</span>
 </li>
@@ -324,56 +349,31 @@
 </div>
 <script>
             const locations = {
-                1: {
-                    name: "City Art Museum",
-                    address: "123 Art Gallery Lane",
-                    rating: "4.5"
-                },
-                2: {
-                    name: "Central Park",
-                    address: "456 Park Avenue",
-                    rating: "4.8"
-                },
-                3: {
-                    name: "Historic Old Town",
-                    address: "789 History Plaza",
-                    rating: "4.7"
-                },
-                4: {
-                    name: "The Grand Library",
-                    address: "101 Knowledge Blvd",
-                    rating: "4.9"
-                },
-                5: {
-                    name: "Metropolis Arena",
-                    address: "212 Sports Rd",
-                    rating: "4.6"
-                },
-                6: {
-                    name: "Ocean View Pier",
-                    address: "343 Boardwalk",
-                    rating: "4.4"
-                },
-                7: {
-                    name: "Science & Innovation Hub",
-                    address: "565 Future Drive",
-                    rating: "4.8"
-                },
-                8: {
-                    name: "Riverside Market",
-                    address: "878 Riverfront Walk",
-                    rating: "4.7"
-                }
+                1: { name: "City Art Museum", address: "123 Art Gallery Lane", rating: "4.5", pinTop: '35%', pinLeft: '25%' },
+                2: { name: "Central Park", address: "456 Park Avenue", rating: "4.8", pinTop: '25%', pinLeft: '55%' },
+                3: { name: "Historic Old Town", address: "789 History Plaza", rating: "4.7", pinTop: '55%', pinLeft: '18%' },
+                4: { name: "The Grand Library", address: "101 Knowledge Blvd", rating: "4.9", pinTop: '48%', pinLeft: '80%' },
+                5: { name: "Metropolis Arena", address: "212 Sports Rd", rating: "4.6", pinTop: '75%', pinLeft: '40%' },
+                6: { name: "Ocean View Pier", address: "343 Boardwalk", rating: "4.4", pinTop: '85%', pinLeft: '70%' },
+                7: { name: "Science & Innovation Hub", address: "565 Future Drive", rating: "4.8", pinTop: '90%', pinLeft: '20%' },
+                8: { name: "Riverside Market", address: "878 Riverfront Walk", rating: "4.7", pinTop: '15%', pinLeft: '85%' }
             };
             const locationPins = document.querySelectorAll('.location-pin');
             const overlayMask = document.getElementById('overlay-mask');
+            const mapContainer = document.getElementById('map-container');
             let activeCard = null;
+            let activePin = null;
             function hideLocationCard() {
                 if (activeCard) {
                     const cardElement = activeCard.querySelector('.location-info-card');
                     cardElement.classList.remove('opacity-100', 'translate-y-0');
                     cardElement.classList.add('opacity-0', 'translate-y-full');
                     overlayMask.classList.add('hidden');
+                    if (activePin) {
+                        activePin.classList.remove('active');
+                        activePin = null;
+                    }
+                     mapContainer.style.transform = 'scale(1) translate(0, 0)';
                     setTimeout(() => {
                         activeCard.remove();
                         activeCard = null;
@@ -406,18 +406,39 @@
                 `;
                 document.querySelector('.group\\/design-root').appendChild(newCard);
                 activeCard = newCard;
+                activePin = pinElement;
+                pinElement.classList.add('active');
                 const cardElement = newCard.querySelector('.location-info-card');
                 setTimeout(() => {
                     cardElement.classList.remove('opacity-0', 'translate-y-full');
                     cardElement.classList.add('opacity-100', 'translate-y-0');
                 }, 10);
                 overlayMask.classList.remove('hidden');
+                const pinTop = parseFloat(locationData.pinTop);
+                const pinLeft = parseFloat(locationData.pinLeft);
+                const translateX = (50 - pinLeft) * 2;
+                const translateY = (50 - pinTop) * 1.5;
+                mapContainer.style.transform = `scale(2) translate(${translateX}%, ${translateY}%)`;
             }
             locationPins.forEach(pin => {
                 pin.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const locationId = pin.dataset.locationId;
                     showLocationCard(locationId, pin);
+                });
+            });
+            document.querySelectorAll('#location-key-content li').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const locationId = item.dataset.locationId;
+                    const pinElement = document.querySelector(`.location-pin[data-location-id="${locationId}"]`);
+                    if (pinElement) {
+                        showLocationCard(locationId, pinElement);
+                        const locationKey = document.getElementById('location-key');
+                        if (locationKey.classList.contains('expanded')) {
+                            document.getElementById('location-key-toggle').click();
+                        }
+                    }
                 });
             });
             overlayMask.addEventListener('click', hideLocationCard);
