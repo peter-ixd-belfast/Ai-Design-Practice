@@ -84,8 +84,17 @@
         }
         #map-container {
             transition: transform 0.5s ease-in-out;
+            cursor: grab;
+        }
+        #map-container.dragging {
+            cursor: grabbing;
         }
     </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
 <style>
     body {
       min-height: max(884px, 100dvh);
@@ -248,7 +257,7 @@
 <span class="material-symbols-outlined text-3xl">fullscreen</span>
 </button>
 </div>
-<div class="absolute bottom-0 w-full z-10 transition-all duration-300" id="location-key">
+<div class="absolute bottom-0 w-full z-10 transition-all duration-300 expanded" id="location-key">
 <div class="w-full rounded-t-xl bg-white p-4 shadow-lg dark:bg-background-dark">
 <button class="flex w-full items-center justify-between text-gray-800 dark:text-gray-200" id="location-key-toggle">
 <h3 class="font-bold text-lg">Key Locations</h3>
@@ -405,25 +414,71 @@
             let currentZoom = 1;
             const maxZoom = 3;
             const minZoom = 0.5;
-            function updateZoom(zoomLevel, x, y) {
-                mapContainer.style.transform = `scale(${zoomLevel}) translate(${x || 0}px, ${y || 0}px)`;
+            let panX = 0;
+            let panY = 0;
+            let isDragging = false;
+            let startX, startY;
+            function updateTransform() {
+                mapContainer.style.transform = `scale(${currentZoom}) translate(${panX}px, ${panY}px)`;
             }
             function resetMap() {
                 hideLocationCard();
                 currentZoom = 1;
-                mapContainer.style.transform = 'scale(1) translate(0, 0)';
+                panX = 0;
+                panY = 0;
+                mapContainer.style.transition = 'transform 0.5s ease-in-out';
+                updateTransform();
             }
             zoomInBtn.addEventListener('click', () => {
                  if (activePin) return;
                 currentZoom = Math.min(maxZoom, currentZoom + 0.25);
-                updateZoom(currentZoom);
+                mapContainer.style.transition = 'transform 0.5s ease-in-out';
+                updateTransform();
             });
             zoomOutBtn.addEventListener('click', () => {
                  if (activePin) return;
                 currentZoom = Math.max(minZoom, currentZoom - 0.25);
-                updateZoom(currentZoom);
+                mapContainer.style.transition = 'transform 0.5s ease-in-out';
+                updateTransform();
             });
             resetViewBtn.addEventListener('click', resetMap);
+             mapContainer.addEventListener('mousedown', (e) => {
+                if (activePin) return;
+                isDragging = true;
+                mapContainer.classList.add('dragging');
+                mapContainer.style.transition = 'none';
+                startX = e.clientX - panX * currentZoom;
+                startY = e.clientY - panY * currentZoom;
+                e.preventDefault();
+            });
+             mapContainer.addEventListener('touchstart', (e) => {
+                if (activePin) return;
+                isDragging = true;
+                mapContainer.classList.add('dragging');
+                mapContainer.style.transition = 'none';
+                startX = e.touches[0].clientX - panX * currentZoom;
+                startY = e.touches[0].clientY - panY * currentZoom;
+            });
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                panX = (e.clientX - startX) / currentZoom;
+                panY = (e.clientY - startY) / currentZoom;
+                updateTransform();
+            });
+             document.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                panX = (e.touches[0].clientX - startX) / currentZoom;
+                panY = (e.touches[0].clientY - startY) / currentZoom;
+                updateTransform();
+            });
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                mapContainer.classList.remove('dragging');
+            });
+            document.addEventListener('touchend', () => {
+                isDragging = false;
+                mapContainer.classList.remove('dragging');
+            });
             function hideLocationCard() {
                 if (activeCard) {
                     const cardElement = activeCard.querySelector('.location-info-card');
@@ -476,12 +531,15 @@
                 overlayMask.classList.remove('hidden');
                 const pinTop = parseFloat(locationData.pinTop);
                 const pinLeft = parseFloat(locationData.pinLeft);
-                const translateX = (50 - pinLeft) * 2;
-                const translateY = (50 - pinTop) * 1.5;
-                mapContainer.style.transform = `scale(2) translate(${translateX}%, ${translateY}%)`;
+                currentZoom = 2;
+                panX = (50 - pinLeft) / 100 * mapContainer.offsetWidth;
+                panY = (50 - pinTop) / 100 * mapContainer.offsetHeight - 50; // Adjust for card height
+                mapContainer.style.transition = 'transform 0.5s ease-in-out';
+                updateTransform();
             }
             locationPins.forEach(pin => {
                 pin.addEventListener('click', (e) => {
+                    if (isDragging) return;
                     e.stopPropagation();
                     const locationId = pin.dataset.locationId;
                     showLocationCard(locationId, pin);
@@ -520,7 +578,6 @@
                 mapViewBtn.classList.remove('active');
             });
             const locationKeyToggle = document.getElementById('location-key-toggle');
-            locationKey.classList.add('expanded');
             function adjustControlsPosition() {
                 if (locationKey.classList.contains('expanded')) {
                     const keyHeight = locationKey.offsetHeight;
@@ -535,9 +592,7 @@
                 locationKey.classList.toggle('expanded');
                 adjustControlsPosition();
             });
-            // Initial position check
             adjustControlsPosition();
-            // Add a listener for resize events if the layout is responsive
             window.addEventListener('resize', adjustControlsPosition);
         </script>
 </div>
