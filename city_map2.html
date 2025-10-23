@@ -62,6 +62,11 @@
       min-height: max(884px, 100dvh);
     }
   </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
   </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
 <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden bg-background-light dark:bg-background-dark">
@@ -71,17 +76,9 @@
 </button>
 <h2 class="text-[#111418] dark:text-gray-200 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">City Locations</h2>
 <div class="flex w-10 items-center justify-end">
-<div class="flex items-center rounded-full bg-gray-100 dark:bg-gray-700 p-1">
-<button class="p-1 rounded-full text-gray-500 dark:text-gray-400" id="list-view-btn">
-<span class="material-symbols-outlined text-base">list</span>
-</button>
-<button class="p-1 rounded-full bg-primary text-white" id="map-view-btn">
-<span class="material-symbols-outlined text-base">map</span>
-</button>
 </div>
 </div>
-</div>
-<div class="flex-grow relative" id="map-view">
+<div class="hidden flex-grow relative" id="map-view">
 <img alt="City map with location markers" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgQ8UuAHodva5rebRzaqFORsOEpUPz-qT2NICGhT2wsL0uSZ7le9LYzN0MXWHMYOwsBSogkhlci3o5ObEwJIoHUX4dL5-k0qUp_4janK-fZ6xawQOKkpTez4n3j9Xe2I5BFnKoJh2dtrth7WIuTN3iZlC75mRKTreLeVc_1hNnW_BjNkAySWNkIqV8zR4wGQ5xDS1eQGw5L9uDOmXM_6Q9s_UeTng9ANncdETEeX3S9QXlNRT3zJ5UR2Rt3qIQ2NinnZQwaLlm2h8"/>
 <div class="absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 flex items-center gap-4">
 <div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-500"></div>
@@ -94,13 +91,14 @@
 </button>
 </div>
 </div>
-<div class="hidden flex-grow overflow-y-auto pb-4 bg-white dark:bg-gray-900" id="list-view">
-<div class="p-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+<div class="flex flex-col flex-grow overflow-y-auto bg-white dark:bg-gray-900" id="list-view">
+<div class="p-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-10">
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">search</span>
 <input class="w-full rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 py-2.5 pl-10 pr-4 text-[#111418] dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-primary/50" placeholder="Search locations..." type="text"/>
 </div>
 </div>
+<div class="flex-grow">
 <button class="w-full text-left flex items-start gap-4 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" data-location="grand-park">
 <div class="mt-1 flex size-4 shrink-0 items-center justify-center rounded-full bg-red-500"></div>
 <div class="flex flex-col">
@@ -157,6 +155,17 @@
 <p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">A famous public sculpture with a reflective surface.</p>
 </div>
 </button>
+</div>
+<div class="sticky bottom-4 left-1/2 -translate-x-1/2 w-fit mx-auto mt-4">
+<div class="flex items-center rounded-full bg-gray-100 dark:bg-gray-800 p-1 shadow-lg">
+<button class="p-2 rounded-full bg-primary text-white" id="list-view-btn-active">
+<span class="material-symbols-outlined text-base">list</span>
+</button>
+<button class="p-2 rounded-full text-gray-500 dark:text-gray-400" id="map-view-btn-inactive">
+<span class="material-symbols-outlined text-base">map</span>
+</button>
+</div>
+</div>
 </div>
 </div>
 </body></html>
